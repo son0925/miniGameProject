@@ -57,16 +57,38 @@ app.get('/signup', (req,res) => {
   res.render('signup')
 })
 // 회원가입 콜백
-// app.post('/signup/callback', (req,res) => {
+app.post('/signup/callback', (req,res) => {
+  const user = req.body;
+  console.log(user);
+  if (user.password !== user.checkPassword) {
+    return res.send('비번 틀리셨어요')
+  }
+  if (user.password.length < 7) {
+    return res.send('비번 길이는 7글자 이상입니다')
+  }
+  let sql = `select * from users where id = '${user.id}'`
+  console.log(sql);
+  connection.query(sql, (err,result) => {
+    if (err) return res.json({msg: '회원가입 에러'});
+    if (result.length === 0) {
+      sql = `INSERT INTO users (id, password, name, birthday, email)
+      VALUES ('${user.id}', '${user.password}', '${user.name}', '${user.birthday}', '${user.email}@${user.emailOption}');`
+      console.log(sql);
+      connection.query(sql, (err) => {
+        if (err) return res.send('회원가입 오류');
+      })
+    }
+  });
   
-// })
+  res.redirect('/login');
+})
 
 
 
 
 const LocalStrategyConfig = new LocalStrategy({usernameField: 'id', passwordField: 'password'},
   (id, password, done) => {
-    const sql = `select * from users where username = '${id}'`;
+    const sql = `select * from users where id = '${id}'`;
     connection.query(sql, (err, result) => {
       if (err) return done(err, null, {msg: '그냥 에러난 것 같다'});
 
@@ -90,7 +112,7 @@ passport.serializeUser((user,done) => {
 passport.deserializeUser(async (data, done) => {
   console.log(data)
   try {
-    const user = data.username;
+    const user = data.id;
     return done(null, user);
   } catch (err) {
     console.error(err);

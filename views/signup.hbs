@@ -8,7 +8,7 @@
 </head>
 <body>
   
-<form action="/signup/callback">
+<form action="/signup/callback" method="post">
     <table>
     <tr>
         <td><h2>회원가입</h2></td>
@@ -20,13 +20,13 @@
     <tr><td>비밀번호 확인</td></tr>
     <tr><td><input type="password" class="text" name="checkPassword"></td></tr>
     <tr><td>이름</td></tr>
-    <tr><td><input type="text" class="text" name="birthday"></td></tr>
+    <tr><td><input type="text" class="text" name="name"></td></tr>
     <tr><td>생년월일</td></tr>
-    <tr><td><input type="date" class="text" name="email"></td></tr>
+    <tr><td><input type="date" class="text" name="birthday"></td></tr>
     <tr><td>이메일</td></tr>
     <tr>
-        <td><input type="text" class="email"> @ 
-            <select>
+        <td><input type="text" class="email" name="email"> @ 
+            <select name="emailOption">
                 <option>naver.com</option>
                 <option>gmail.com</option>
                 <option>daum.net</option>
@@ -34,7 +34,7 @@
             </select>
         </td>
     </tr>
-    <tr><td><input type="submit" value="가입하기" class="btn" onclick="alert('가입 성공!')"></td></tr>
+    <tr><td><input type="submit" value="가입하기" class="btn"></td></tr>
     </table>
 </form>
 
