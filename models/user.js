@@ -1,23 +1,11 @@
-const mongodb = require('mongoose');
+// user.js
 
-
-const userSchema = mongodb.Schema({
-  email: {
-    type: String,
-    unique: true,
-    trim: true
-  },
-  password: {
-    type: String,
-    minLength: 5
-  }
-})
-
-userSchema.methods.comparePassword = function (plainPassword, cb) {
-  if (plainPassword) return cb(null, true)
-  else return cb('err: 비번이 없습니다')
+function User(id, username, password, email, birthday) {
+  this.id = id;
+  this.username = username;
+  this.password = password;
+  this.email = email;
+  this.birthday = birthday;
 }
-
-const User = mongodb.model('User', userSchema);
 
 module.exports = User;
