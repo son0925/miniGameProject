@@ -83,6 +83,14 @@ app.post('/signup/callback', (req,res) => {
   res.redirect('/login');
 })
 
+// 로그아웃
+app.get('/logout', (req,res) => {
+  req.logout((err) => {
+    if (err) return res.err;
+    res.redirect('/index')
+  })
+})
+
 
 
 
