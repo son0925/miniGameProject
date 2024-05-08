@@ -36,6 +36,7 @@ app.get('/', (req, res) => {
 });
 // 로그인 페이지 이동
 app.get('/login', (req,res) => {
+  console.log(req.user);
   res.render('login');
 })
 // 로그인 콜백
@@ -43,9 +44,12 @@ app.post('/login/callback', (req,res,next) => {
   passport.authenticate('local', (err,user,info) => {
     if (err) return res.json(info);
     if (!user) return res.json(info)
-    console.log('생성자 오류')
-    const loginUser = new User(user.id, user.username, user.password, user.email, user.birthday);
-    res.send(loginUser);
+    
+    req.login(user, function (err) {
+      if (err) return next(err);
+
+      res.redirect('/')
+    })
   })(req,res,next)
 })
 // 회원가입 페이지 이동
@@ -79,6 +83,20 @@ const LocalStrategyConfig = new LocalStrategy({usernameField: 'id', passwordFiel
 )
 
 passport.use('local', LocalStrategyConfig);
+
+passport.serializeUser((user,done) => {
+  return done(null, user);
+})
+passport.deserializeUser(async (data, done) => {
+  console.log(data)
+  try {
+    const user = data.username;
+    return done(null, user);
+  } catch (err) {
+    console.error(err);
+    return done(err);
+  }
+});
 
 
 app.listen(port, () => {
