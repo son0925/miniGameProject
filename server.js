@@ -32,11 +32,12 @@ app.use(passport.session());
 
 
 app.get('/', (req, res) => {
-  res.render('index');
+  res.render('index', {
+    userdata: req.user ? '반갑습니다 '+ req.user : ''
+  });
 });
 // 로그인 페이지 이동
-app.get('/login', (req,res) => {
-  console.log(req.user);
+app.get('/login',checkNotAuthenticated, (req,res) => {
   res.render('login');
 })
 // 로그인 콜백
@@ -53,7 +54,7 @@ app.post('/login/callback', (req,res,next) => {
   })(req,res,next)
 })
 // 회원가입 페이지 이동
-app.get('/signup', (req,res) => {
+app.get('/signup',checkNotAuthenticated, (req,res) => {
   res.render('signup')
 })
 // 회원가입 콜백
@@ -87,7 +88,14 @@ app.post('/signup/callback', (req,res) => {
 app.get('/logout', (req,res) => {
   req.logout((err) => {
     if (err) return res.err;
-    res.redirect('/index')
+    res.redirect('/')
+  })
+})
+
+// 숫자 미니게임
+app.get('/numberGame', checkAuthenticated, (req,res) => {
+  res.render('numberGame', {
+    userdata: `반갑습니다 ${req.user}님`
   })
 })
 
@@ -127,6 +135,21 @@ passport.deserializeUser(async (data, done) => {
     return done(err);
   }
 });
+
+function checkAuthenticated (req,res,next) {
+  if (req.isAuthenticated()) {
+    return next();
+  }
+  return res.redirect('/login');
+}
+
+function checkNotAuthenticated(req,res,next) {
+  if (req.isAuthenticated()) {
+    console.log('이미 로그인 완료')
+    return res.redirect('/');
+  }
+  next();
+}
 
 
 app.listen(port, () => {

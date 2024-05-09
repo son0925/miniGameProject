@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="/static/css/reset.css">
+  <link rel="stylesheet" href="/static/css/numberGame.css">
+  <script defer src="/static/js/numberGame.js"></script>
+</head>
+<body>
+  {{userdata}}
+  <p class="money">현재 자금 : </p>
+  <div class="number">0</div>
+  <div class="batting">
+    <input type="text" placeholder="돈을 입력해주세요 최소 5000원">
+  </div>
+  <div class="btnDiv">
+    <button class="oddNum">홀수</button>
+    <button class="evenNum">짝수</button>
+    <button class="upNum">오버</button>
+    <button class="downNum">언더</button>
+  </div>
+  <div class="genealogy">족보 : </div>
+  <button class="btn">족보 보기</button>
+</body>
+</html>

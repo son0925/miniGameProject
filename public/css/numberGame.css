@@ -1,0 +1,41 @@
+.money {
+  font-size: 30px;
+}
+.number {
+  width: 100%;
+  height: 300px;
+  font-size: 300px;
+  text-align: center;
+}
+.batting {
+width: 100%;
+height: 200px;
+position: relative;
+}
+.batting input {
+  width: 300px;
+  height: 30px;
+  font-size: 20px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+}
+.btnDiv{
+  position: relative;
+  display: flex;
+}
+button {
+  width: 100%;
+  height: 150px;
+}
+.genealogy {
+  padding: 50px;
+  font-size: 30px;
+}
+.genealogyBtn {
+  position: absolute;
+  width: 100%;
+}
