@@ -4,11 +4,20 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <link rel="stylesheet" href="/static/css/main.css">
+  <script>
+    // 서버에서 전달된 메시지 값을 따옴표로 묶어 JavaScript 문자열로 처리합니다.
+    const message = '{{message}}';
+    console.log(message);
+    if (message) {
+      alert(message);
+    }
+  </script>
 </head>
 <body>
   <a href="/login">로그인</a>
   <a href="/signup">회원가입</a> <br><br>
-  <a href="/logout">로그아웃</a> <br><br>
+  <a href="/logout">로그아웃</a> <a href="/chargeMoney">충전</a><br><br>
   {{userdata}}
   <br>
   <a href="/numberGame">숫자게임</a>

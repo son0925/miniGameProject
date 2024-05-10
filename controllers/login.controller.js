@@ -7,7 +7,6 @@ function checkAuthenticated (req,res,next) {
 
 function checkNotAuthenticated(req,res,next) {
   if (req.isAuthenticated()) {
-    console.log('이미 로그인 완료')
     return res.redirect('/');
   }
   next();

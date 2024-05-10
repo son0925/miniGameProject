@@ -25,7 +25,6 @@ passport.serializeUser((user,done) => {
   return done(null, user);
 })
 passport.deserializeUser(async (data, done) => {
-  console.log(data)
   try {
     const user = data.id;
     return done(null, user);

@@ -8,6 +8,7 @@ const loginRouter = require('./routes/login.router');
 const signupRouter = require('./routes/signup.router');
 const logoutRouter = require('./routes/logout.router');
 const numberRouter = require('./routes/number.router');
+const chargeMoneyRouter = require('./routes/chargeMoney.router');
 
 
 
@@ -29,10 +30,14 @@ require('./config/passport')
 
 
 app.get('/', (req, res) => {
+  const message = req.session.message; // 세션에서 메시지를 읽어옴
+  req.session.message = ''; // 읽은 후에 세션에서 메시지를 초기화
   res.render('index', {
-    userdata: req.user ? '반갑습니다 '+ req.user : ''
+    userdata: req.user ? '반갑습니다 ' + req.user : '',
+    message: message // 클라이언트에 전달할 메시지
   });
 });
+
 
 // 로그인 라우터
 app.use('/login', loginRouter);
@@ -41,7 +46,10 @@ app.use('/signup', signupRouter);
 // 로그아웃
 app.use('/logout', logoutRouter);
 // 숫자 미니게임
-app.use('/numberGame', numberRouter)
+app.use('/numberGame', numberRouter);
+// 돈 충전하기
+app.use('/chargeMoney', chargeMoneyRouter);
+
 
 
 

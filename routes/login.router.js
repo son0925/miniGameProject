@@ -14,7 +14,7 @@ loginRouter.post('/callback', (req,res,next) => {
     
     req.login(user, function (err) {
       if (err) return next(err);
-
+      req.session.message = `${req.user.id}님 로그인을 성공하셨습니다`
       res.redirect('/')
     })
   })(req,res,next)
