@@ -9,6 +9,9 @@ const signupRouter = require('./routes/signup.router');
 const logoutRouter = require('./routes/logout.router');
 const numberRouter = require('./routes/number.router');
 const chargeMoneyRouter = require('./routes/chargeMoney.router');
+const productRouter = require('./routes/products.router');
+const mongoose = require('mongoose');
+
 
 
 
@@ -26,7 +29,18 @@ app.use(session({
   saveUninitialized: true
 }));
 app.use(passport.session());
-require('./config/passport')
+require('./config/passport');
+app.use((err,req,res,next) => {
+  res.json({msg: err})
+})
+
+mongoose.connect('mongodb+srv://son0925:1234@son0925.kwzwdli.mongodb.net/?retryWrites=true&w=majority&appName=son0925')
+.then(() => {
+  console.log('MongoDB Connected')
+})
+.catch((err) => {
+  console.log(err)
+})
 
 
 app.get('/', (req, res) => {
@@ -49,6 +63,8 @@ app.use('/logout', logoutRouter);
 app.use('/numberGame', numberRouter);
 // 돈 충전하기
 app.use('/chargeMoney', chargeMoneyRouter);
+// mongoDB 연습하기 몽고 라우터
+app.use('/products', productRouter);
 
 
 
