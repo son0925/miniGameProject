@@ -1,5 +1,6 @@
 const express = require('express');
-const port = 4000;
+require('dotenv').config();
+const port = process.env.PORT;
 const app = express();
 const path = require('path');
 const passport = require('passport');
@@ -34,7 +35,7 @@ app.use((err,req,res,next) => {
   res.json({msg: err})
 })
 
-mongoose.connect('mongodb+srv://son0925:1234@son0925.kwzwdli.mongodb.net/?retryWrites=true&w=majority&appName=son0925')
+mongoose.connect(process.env.MONGO_URL)
 .then(() => {
   console.log('MongoDB Connected')
 })
